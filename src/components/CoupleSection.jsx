@@ -53,7 +53,9 @@ const CoupleSection = ({ sectionRef, brideShort, groomShort, config,photos }) =>
         .couple-wrapper .couple-grid { display: grid; grid-template-columns: 1fr; align-items: center; gap: 2rem; margin: 2rem 0; }
         @media (min-width: 640px) { .couple-wrapper .couple-grid { grid-template-columns: 1fr auto 1fr; gap: 2rem; margin: 3rem 0; } }
         
-        .couple-wrapper .couple-card { padding: 2rem 1.5rem; background: rgba(255,255,255,0.6); backdrop-filter: blur(4px); border: 0.5px solid rgba(201,168,76,0.3); border-radius: 4px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .couple-wrapper .couple-card { 
+        linear-gradient(to top, var(--ivory) 0%, transparent 100%);
+        padding: 2rem 1.5rem; background: rgba(255,255,255,.85); backdrop-filter: blur(4px); border: 0.5px solid rgba(201,168,76,0.3); border-radius: 12px; display: flex; flex-direction: column; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         @media (min-width: 640px) { .couple-wrapper .couple-card { background: transparent; border: none; box-shadow: none; padding: 1.5rem 1rem; } }
         
         /* Floating Animation untuk Foto */
@@ -63,7 +65,7 @@ const CoupleSection = ({ sectionRef, brideShort, groomShort, config,photos }) =>
           100% { transform: translateY(0px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         }
 
-        .couple-wrapper .couple-photo-frame { width: 130px; height: 130px; margin: 0 auto 1.5rem; border-radius: 50%; background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(232,160,176,0.2)); border: 1px solid rgba(201,168,76,0.4); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; animation: floatPhoto 5s ease-in-out infinite; }
+        .couple-wrapper .couple-photo-frame { width: 130px; height: 130px; margin: 0 auto 1.5rem; border-radius: 50%; background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(232,160,176,0.2)); border: 1px solid rgba(201,168,76,0.4); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; animation: floatPhoto 8s ease-in-out infinite; }
         @media (min-width: 640px) { .couple-wrapper .couple-photo-frame { width: 160px; height: 160px; margin-bottom: 1.5rem; } }
         
         /* Memberikan delay pada foto pria agar naiknya bergantian */
@@ -127,32 +129,7 @@ const CoupleSection = ({ sectionRef, brideShort, groomShort, config,photos }) =>
         
         {/* 3. Grid Mempelai */}
         <div className="couple-grid">
-          
-          {/* Mempelai Wanita (Masuk dari kiri) */}
-          <div className="couple-card card-bride anim-bride">
-            <div className="couple-photo-frame">
-              {bridePhoto ? (
-                <img src={bridePhoto} alt={brideShort} className="couple-photo-inner" />
-              ) : (
-                <span className="couple-initials">{brideShort.charAt(0)}</span>
-              )}
-            </div>
-            <div className="couple-name">{config?.bride?.name || 'Nama Mempelai Wanita'}</div>
-            <div className="couple-parents">
-              Putri dari Bpk. {config?.bride?.father || '-'} <br/> & Ibu {config?.bride?.mother || '-'}
-            </div>
-            <div className="couple-ig">
-              <a href={`https://instagram.com/${config?.bride?.instagram || 'hanaputri'}`} target="_blank" rel="noreferrer">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                @{config?.bride?.instagram || 'hanaputri'}
-              </a>
-            </div>
-          </div>
-
-          {/* Bunga Pemisah di Tengah */}
-          <div className="couple-divider anim-divider">✿</div>
-
-          {/* Mempelai Pria (Masuk dari kanan) */}
+            {/* Mempelai Pria (Masuk dari kanan) */}
           <div className="couple-card card-groom anim-groom">
             <div className="couple-photo-frame">
               {groomPhoto ? (
@@ -168,10 +145,43 @@ const CoupleSection = ({ sectionRef, brideShort, groomShort, config,photos }) =>
             <div className="couple-ig">
               <a href={`https://instagram.com/${config?.groom?.instagram || 'aryapratama'}`} target="_blank" rel="noreferrer">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                @{config?.groom?.instagram || 'aryapratama'}
+                {config?.groom?.instagram || 'aryapratama'}
               </a>
             </div>
           </div>
+        {/* tambahkan goyang goyang pada pohon */}
+        <style>{`
+          @keyframes swing {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(2deg); }
+          }
+        `}</style>
+<img src='tree-2.webp' style={{ animation: 'swing 5s infinite ease-in-out',position:'absolute',bottom:0,right:'-50%',zIndex:-1,scale:1}}/>
+<img src='tree-3.webp' style={{ animation: 'swing 5s infinite ease-in-out',position:'absolute',bottom:'-20%',right:'-50%',zIndex:-2,scale:2}}/>
+<img src='tree-1.webp' style={{ animation: 'swing 5s infinite ease-in-out',position:'absolute',top:'10%',left:'-50%',zIndex:-2,scale:2}}/>
+          {/* Bunga Pemisah di Tengah */}
+          <div className="couple-divider anim-divider">✿</div>
+
+     {/* Mempelai Wanita (Masuk dari kiri) */}
+          <div className="couple-card card-bride anim-bride">
+            <div className="couple-photo-frame">
+              {bridePhoto ? (
+                <img src={bridePhoto} alt={brideShort} className="couple-photo-inner" />
+              ) : (
+                <span className="couple-initials">{brideShort.charAt(0)}</span>
+              )}
+            </div>
+            <div className="couple-name">{config?.bride?.name || 'Nama Mempelai Wanita'}</div>
+            <div className="couple-parents">
+              Putri dari Bpk. {config?.bride?.father || '-'} <br/> & Ibu {config?.bride?.mother || '-'}
+            </div>
+            <div className="couple-ig">
+              <a href={`https://instagram.com/${config?.bride?.instagram || 'hanaputri'}`} target="_blank" rel="noreferrer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                {config?.bride?.instagram || 'hanaputri'}
+              </a>
+            </div>
+        </div>
         </div>
         {turutMengundang && (
         

@@ -1,3 +1,5 @@
+import SakuraBlossom from "./SakuraBlossom";
+
 const RsvpSection = ({ sectionRef, rsvpData, setRsvpData, submitRSVP, rsvpStatus,isUserRegistered }) => {
   // Pengecekan apakah tamu sudah pernah RSVP sebelumnya (dari database) 
   // ATAU baru saja berhasil submit di sesi ini
@@ -9,7 +11,7 @@ const RsvpSection = ({ sectionRef, rsvpData, setRsvpData, submitRSVP, rsvpStatus
         .rsvp-wrapper { text-align: center; padding: 4rem 1.25rem; max-width: 900px; margin: 0 auto; width: 100%; position: relative; z-index: 2; }
         @media (min-width: 640px) { .rsvp-wrapper { padding: 5rem 2rem; } }
         
-        .rsvp-wrapper .section-heading { font-family: 'Zen Antique', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); color: var(--deep-red, #8b1a2e); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+        .rsvp-wrapper .section-heading { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); color: var(--deep-red, #8b1a2e); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
         .rsvp-wrapper .section-heading-sub { font-size: 0.7rem; color: var(--gold, #c9a84c); letter-spacing: 0.4em; margin-bottom: 1.5rem; opacity: 0.9; text-transform: uppercase; }
         
         .rsvp-wrapper .rsvp-form { max-width: 100%; margin: 1.5rem auto 0; padding: 1.5rem 1rem; background: rgba(255,255,255,0.5); border: 0.5px solid rgba(201,168,76,0.3); }
@@ -52,7 +54,6 @@ const RsvpSection = ({ sectionRef, rsvpData, setRsvpData, submitRSVP, rsvpStatus
             <span>Status Kehadiran</span>
             <strong>{String(rsvpData.isAttending) === 'true' || rsvpData.isAttending === true ? 'Hadir' : 'Tidak Hadir'}</strong>
           </div>
-          
           {(String(rsvpData.isAttending) === 'true' || rsvpData.isAttending === true) && (
             <div className="summary-detail">
               <span>Jumlah Tamu</span>

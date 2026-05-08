@@ -1,0 +1,12 @@
+{
+  "showCouple": true,
+  "showCountdown": true,
+  "showHero": true,
+  "showEvent": true,
+  "showLoveStory": true,
+  "showGallery": true,
+  "showGift": true,
+  "showGuestbook": true,
+  "showRsvp": true,
+  "showLocation": true
+}

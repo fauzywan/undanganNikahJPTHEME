@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchConfig } from '../redux/slices/configSlice';
 import AdminLayout from '../components/adminLayout';
 
-const BACKEND_URL = 'http://undangannikaharirini.onrender.com';
+const BACKEND_URL = 'https://undangannikaharirini.onrender.com';
 const API_URL = `${BACKEND_URL}/api`;
 
 const S = `

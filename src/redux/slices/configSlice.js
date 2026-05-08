@@ -18,7 +18,7 @@ export const updateConfig = createAsyncThunk('config/updateConfig',
     try{
         const token = getState().auth.token;
         const config = {headers:{Authorization:`Bearer ${token}`}}
-        const response = await axios.post('https://undangannikaharirini.onrender.com/api/admin/config',newData,config);
+      const response = await axios.post('https://undangannikaharirini.onrender.com/api/admin/config',newData,config);
         return response.data.config;
 
     }

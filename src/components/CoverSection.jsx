@@ -53,7 +53,7 @@ const coverPhoto = photos.find(p => p.role === 'cover')?.url ||null;
       </div>
 
       <div className="cover-names">
-        {brideShort} <span>&amp;</span> {groomShort}
+        {groomShort} <span>&amp;</span> {brideShort }
       </div>
 
       <div className="cover-guest-box">

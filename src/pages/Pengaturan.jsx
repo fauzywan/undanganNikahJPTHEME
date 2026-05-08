@@ -300,6 +300,7 @@ const Pengaturan = () => {
                 </div>
                 <FieldInput label="Nama Bapak" value={formData.bride.father} onChange={nested('bride', 'father')} placeholder="Nama ayah" />
                 <FieldInput label="Nama Ibu" value={formData.bride.mother} onChange={nested('bride', 'mother')} placeholder="Nama ibu" />
+                <FieldInput label="Instagram" value={formData.bride.instagram} onChange={nested('bride', 'instagram')} placeholder="Instagram" />
                 <div className="pg-grid-full pg-field">
                   <label className="pg-label">Alamat Domisili</label>
                   <textarea className="pg-textarea" rows="2" value={formData.bride.address} onChange={nested('bride', 'address')} placeholder="Alamat tempat tinggal" />
@@ -319,6 +320,7 @@ const Pengaturan = () => {
                 </div>
                 <FieldInput label="Nama Bapak" value={formData.groom.father} onChange={nested('groom', 'father')} placeholder="Nama ayah" />
                 <FieldInput label="Nama Ibu" value={formData.groom.mother} onChange={nested('groom', 'mother')} placeholder="Nama ibu" />
+                <FieldInput label="Instagram" value={formData.groom.instagram} onChange={nested('groom', 'instagram')} placeholder="Instagram" />
                 <div className="pg-grid-full pg-field">
                   <label className="pg-label">Alamat Domisili</label>
                   <textarea className="pg-textarea" rows="2" value={formData.groom.address} onChange={nested('groom', 'address')} placeholder="Alamat tempat tinggal" />

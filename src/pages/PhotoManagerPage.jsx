@@ -96,9 +96,11 @@ const ROLES = [
 ];
 
 const getDisplayUrl = (url) => {
-  if (url && url.startsWith('/uploads/')) return `${BACKEND_URL}${url}`;
-  return url;
+  if (!url) return '';
+  const result = url.startsWith('https://') ? url : `${BACKEND_URL}/${url}`;
+  return result;
 };
+
 
 const getSourceBadge = (source) => {
   if (source === 'ig')   return { cls: 'badge-ig',   label: 'IG' };
@@ -165,7 +167,6 @@ const PhotoManagerPage = () => {
       setIsUploading(false);
     }
   };
-
   // ─── URL ADD ─────────────────────────────────────────────────
   const handleAddUrl = async () => {
     if (!urlInput.trim()) return;
@@ -369,7 +370,7 @@ const PhotoManagerPage = () => {
                     <span className={`source-badge ${badge.cls}`}>{badge.label}</span>
                     <img
                       src={getDisplayUrl(photo.url)} alt="Foto" loading="lazy"
-                      onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/300x225?text=Error'; }}
+                      onError={(e) => { e.target.onerror = null; e.target.src = ''; }}
                     />
                   </div>
                   <div className="gallery-footer">

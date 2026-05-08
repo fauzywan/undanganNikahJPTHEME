@@ -35,7 +35,7 @@ const GuestbookSection = ({ sectionRef, guests:guestsData }) => {
         /* PELINDUNG Z-INDEX (Agar teks selalu di depan ikan) */
         .guestbook-inner { position: relative; z-index: 2; }
 
-        .guestbook-wrapper .section-heading { font-family: 'Zen Antique', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); color: var(--deep-red, #8b1a2e); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+        .guestbook-wrapper .section-heading { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); color: var(--deep-red, #8b1a2e); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
         .guestbook-wrapper .section-heading-sub { font-size: 0.7rem; color: var(--gold, #c9a84c); letter-spacing: 0.4em; margin-bottom: 2.5rem; opacity: 0.9; text-transform: uppercase; }
 
         /* Container List Ucapan */

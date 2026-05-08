@@ -37,6 +37,15 @@ const NAV_ITEMS = [
       </svg>
     ),
   },
+   {
+    to: '/admin/lovestory',
+    label: 'Love Story',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 12 2.5a5.5 5.5 0 0 0-9 3.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+      </svg>
+    ),
+  },
   {
     to: '/admin/pengaturan-foto',
     label: 'Galeri Foto',
@@ -562,6 +571,7 @@ const AdminLayout = ({ children, title }) => {
             const isActive = location.pathname === item.to;
             return (
               <Link
+                
                 key={item.to}
                 to={item.to}
                 className={`al-bottom-nav-item${isActive ? ' active' : ''}`}

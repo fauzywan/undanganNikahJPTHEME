@@ -82,7 +82,7 @@ const EventSection = ({ sectionRef, config }) => {
         .event-wrapper { text-align: center; padding: 4rem 1.25rem; max-width: 900px; margin: 0 auto; width: 100%; position: relative; z-index: 2; }
         @media (min-width: 640px) { .event-wrapper { padding: 5rem 2rem; } }
         
-        .event-wrapper .section-heading { font-family: 'Zen Antique', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); color: var(--deep-red, #8b1a2e); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+        .event-wrapper .section-heading { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 8vw, 2.5rem); color: var(--deep-red, #8b1a2e); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
         .event-wrapper .section-heading-sub { font-size: 0.7rem; color: var(--gold, #c9a84c); letter-spacing: 0.4em; margin-bottom: 1.5rem; opacity: 0.9; text-transform: uppercase; }
         
         .event-wrapper .carousel-container { position: relative; width: 100%; overflow: hidden; padding: 0.5rem 0; }
@@ -183,7 +183,7 @@ const EventSection = ({ sectionRef, config }) => {
           {events.map((event, idx) => {
             const d = new Date(event.date);
             return (
-              <div className="carousel-slide" key={event._id || idx}>
+              <div className="carousel-slide" style={{ overflow: 'hidden' }} key={event._id || idx}>
                 <div className="event-card">
                   <div className="event-title">{event.name}</div>
                   
