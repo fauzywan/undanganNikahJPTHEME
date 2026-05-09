@@ -97,7 +97,7 @@ const ROLES = [
 
 const getDisplayUrl = (url) => {
   if (!url) return '';
-  const result = url.startsWith('https://') ? url : `${BACKEND_URL}/${url}`;
+  const result = url
   return result;
 };
 

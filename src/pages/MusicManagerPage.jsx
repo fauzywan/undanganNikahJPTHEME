@@ -238,28 +238,47 @@ const MusicManagerPage = () => {
     setPreviewUrl(URL.createObjectURL(file));
   };
 
-  const handleUploadMusic = async (e) => {
+const handleUploadMusic = async (e) => {
     e.preventDefault();
     if (!selectedFile) return alert('Silakan pilih file lagu terlebih dahulu!');
+    
     setIsUploading(true);
+    
+    // 1. Siapkan FormData
     const formData = new FormData();
-    formData.append('musicFile', selectedFile);
+    formData.append('musicFile', selectedFile); // NAMA INI HARUS SAMA DENGAN upload.single('musicFile')
+    
     try {
-      await axios.post(`${API_URL}/admin/config/music`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+      // 2. Tembak ke API Backend
+      const response = await axios.post(`${API_URL}/config/music`, formData, { 
+        headers: { 'Content-Type': 'multipart/form-data' } 
+      });
+      
       alert('Musik latar berhasil diunggah!');
       setSelectedFile(null);
       setPreviewUrl('');
       dispatch(fetchConfig());
+      
     } catch (error) {
       alert(error.response?.data?.message || 'Terjadi kesalahan saat mengunggah musik latar.');
     } finally {
       setIsUploading(false);
     }
   };
-
+  // --- PENYESUAIAN SUPABASE URL ---
   const getAudioSource = () => {
     const dbUrl = configData?.config?.bgmUrl;
-    if (dbUrl) return dbUrl.startsWith('/uploads/') ? `${BACKEND_URL}${dbUrl}` : dbUrl;
+    
+    // 1. Jika URL berasal dari Supabase (sudah ada awalan http/https)
+    if (dbUrl && dbUrl.startsWith('http')) {
+      return dbUrl;
+    }
+    
+    // 2. Fallback untuk data lama yang tersimpan sebagai '/uploads/...'
+    if (dbUrl && dbUrl.startsWith('/uploads/')) {
+      return `${BACKEND_URL}${dbUrl}`;
+    }
+    
     return '';
   };
 

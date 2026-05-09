@@ -189,8 +189,8 @@ useEffect(() => {
 const getBgmUrl = () => {
     const dbUrl = config?.bgmUrl;
   
-    if (dbUrl && dbUrl.startsWith('/uploads/')) {
-      return `https://undangannikaharirini.onrender.com${dbUrl}`;
+    if (dbUrl) {
+      return dbUrl;
     }
     // Lapis 1: Jika API tidak mereturn apa-apa, gunakan fallback dari folder public
     return dbUrl || '/music/bgm.mp3'; 
