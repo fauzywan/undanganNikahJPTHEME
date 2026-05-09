@@ -4,7 +4,7 @@ const HeroSection = ({ sectionRef, photos, brideShort, groomShort, config }) => 
   // Ambil 3 foto dari galeri (atau gunakan placeholder jika kosong)
 
   const polaroidPhotos = photos?.filter((p) => p.role === 'polaroid')?.map(p=>p.url) || [null, null, null];
-console.log(polaroidPhotos)
+
   return (
     <section className="hero-wrapper" ref={sectionRef}>
       <style>{`
