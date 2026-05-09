@@ -387,10 +387,31 @@ const Dashboard = () => {
     setIsWaModalOpen(true);
   };
 
-  const handleSendWa = () => {
+const handleSendWa = () => {
     if (!waMessage.trim()) { alert('Pesan tidak boleh kosong!'); return; }
-    window.open(`https://wa.me/${currentGuestWa.whatsappNumber}?text=${encodeURIComponent(waMessage)}`, '_blank');
+    
+    // Hilangkan karakter selain angka (seperti tanda +) untuk URL
+    const cleanWaNumber = currentGuestWa.whatsappNumber.replace(/\D/g, ''); 
+    
+    window.open(`https://wa.me/${cleanWaNumber}?text=${encodeURIComponent(waMessage)}`, '_blank');
     setIsWaModalOpen(false);
+  };
+  const handleWaChange = (e) => {
+    let value = e.target.value;
+
+    // Opsional: Hapus karakter selain angka dan simbol '+' agar input bersih
+    value = value.replace(/[^0-9+]/g, '');
+
+    // Jika input dimulai dengan '08', otomatis ubah menjadi '+628'
+    if (value.startsWith('08')) {
+      value = '+628' + value.slice(2);
+    } 
+    // Jaga-jaga jika user iseng mengetik angka '8' langsung di awal
+    else if (value.startsWith('8')) {
+      value = '+628' + value.slice(1);
+    }
+
+    setNewGuestWA(value);
   };
 
   return (
@@ -490,9 +511,16 @@ const Dashboard = () => {
             </div>
             {/* Nomor WA */}
             <div className="d-form-label">Nomor WA</div>
-            <div className="d-form-row">
-              <input className="d-input" style={{ flex: 1 }} type="text" autoFocus placeholder="Contoh: 08123456789" value={newGuestWA} onChange={(e) => setNewGuestWA(e.target.value)} />
-            </div>
+<div className="d-form-row">
+  <input 
+    className="d-input" 
+    style={{ flex: 1 }} 
+    type="text" 
+    placeholder="Contoh: +628123456789" // Ubah placeholder agar seragam
+    value={newGuestWA} 
+    onChange={handleWaChange} // Gunakan handler yang baru dibuat
+  />
+</div>
           </form>
         </div>
       )}

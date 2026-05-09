@@ -64,6 +64,7 @@ const AdminLayout = ({ children, title }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  
 
   const handleLogout = () => {
     dispatch(logout());
@@ -549,13 +550,7 @@ const AdminLayout = ({ children, title }) => {
             </div>
 
             <div className="al-header-right">
-              <div className="al-search">
-                <svg className="al-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8"/>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                </svg>
-                <input type="text" placeholder="Cari tamu..." />
-              </div>
+              
               <div className="al-avatar">A</div>
             </div>
           </header>
