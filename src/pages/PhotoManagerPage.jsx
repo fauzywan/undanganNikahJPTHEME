@@ -6,101 +6,342 @@ const BACKEND_URL = 'https://undangannikaharirini.onrender.com'
 const API_URL = `${BACKEND_URL}/api`;
 
 const styles = `
-  .photo-page { padding: 1.5rem; font-family: system-ui, -apple-system, sans-serif; color: #1e293b; background: #f8fafc; min-height: 100vh; }
-  .page-title { font-size: 1.6rem; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
-  .page-sub { font-size: 0.9rem; color: #64748b; margin-bottom: 1.5rem; }
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-  .tab-bar { display: flex; gap: 4px; background: #e2e8f0; border-radius: 8px; padding: 4px; width: fit-content; margin-bottom: 1.5rem; flex-wrap: wrap; }
-  .tab-btn { padding: 6px 14px; border-radius: 6px; border: none; background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; color: #64748b; transition: all 0.15s; white-space: nowrap; }
-  .tab-btn.active { background: #ffffff; color: #0f172a; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  :root {
+    --cream: #fdf8f3;
+    --warm-white: #fffcf8;
+    --blush: #f4e4d4;
+    --rose: #c9856a;
+    --rose-dark: #a8634c;
+    --rose-light: #e8b49a;
+    --gold: #c8a96e;
+    --gold-light: #ede0c4;
+    --ink: #2c1f18;
+    --ink-light: #6b4f3f;
+    --muted: #9e8070;
+    --border: #e8d8cc;
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
+    --error: #dc2626;
+    --error-bg: #fef2f2;
+    --info-bg: #eff6ff;
+    --info: #2563eb;
+    --shadow-sm: 0 2px 10px rgba(44,31,24,0.05);
+    --shadow-md: 0 6px 28px rgba(44,31,24,0.09);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-  .upload-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  * { box-sizing: border-box; }
 
-  .drop-zone { border: 2px dashed #cbd5e1; border-radius: 10px; padding: 2.5rem 1rem; text-align: center; cursor: pointer; transition: all 0.2s; background: #f8fafc; position: relative; }
-  .drop-zone.dragging { border-color: #3b82f6; background: #eff6ff; }
-  .drop-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-  .drop-label { font-size: 14px; font-weight: 600; color: #334155; margin-bottom: 4px; }
-  .drop-hint { font-size: 12px; color: #94a3b8; }
-  .drop-browse { color: #2563eb; }
+  /* ── ROOT PAGE ── */
+  .pm-root {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    min-height: 100vh;
+    padding: 2rem 1.5rem 4rem;
+    color: var(--ink);
+  }
+  .pm-max { max-width: 860px; margin: 0 auto; }
 
-  .preview-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
-  .preview-thumb { position: relative; width: 76px; height: 76px; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; }
-  .preview-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .thumb-remove { position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.6); border: none; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  /* ── HEADER ── */
+  .pm-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    position: relative;
+  }
+  .pm-header::after {
+    content: '';
+    display: block;
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto 0;
+  }
+  .pm-eyebrow {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+    background: var(--gold-light);
+    padding: 5px 14px; border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+  .pm-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.9rem, 5vw, 2.8rem);
+    font-weight: 600; color: var(--ink);
+    margin: 0 0 0.4rem; line-height: 1.15;
+  }
+  .pm-header p {
+    font-size: 0.88rem; color: var(--muted);
+    margin: 0; font-weight: 300;
+  }
 
-  .upload-btn-row { display: flex; align-items: center; gap: 12px; margin-top: 1rem; }
-  .btn-primary { padding: 8px 20px; border-radius: 6px; border: none; background: #2563eb; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
-  .btn-primary:hover { background: #1d4ed8; }
-  .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; }
-  .upload-status { font-size: 12px; color: #64748b; }
+  /* ── TAB BAR ── */
+  .pm-tabs {
+    display: flex; gap: 4px;
+    background: var(--blush);
+    border-radius: 12px; padding: 5px;
+    width: fit-content;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+    box-shadow: inset 0 1px 3px rgba(44,31,24,0.07);
+  }
+  .pm-tab {
+    padding: 8px 16px;
+    border-radius: 9px; border: none;
+    background: transparent;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+  .pm-tab.active {
+    background: var(--warm-white);
+    color: var(--ink);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(44,31,24,0.1);
+  }
+  .pm-tab:not(.active):hover { color: var(--rose-dark); background: rgba(255,255,255,0.5); }
 
-  .url-hint { font-size: 13px; color: #64748b; margin-bottom: 0.75rem; }
-  .url-row { display: flex; gap: 8px; }
-  .url-input { flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; transition: border-color 0.15s; }
-  .url-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
-  .tips-box { margin-top: 1rem; padding: 10px 14px; background: #fff8f1; border-left: 3px solid #f59e0b; border-radius: 0 6px 6px 0; font-size: 12px; color: #92400e; }
-  .tips-box code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 3px; font-family: monospace; }
+  /* ── UPLOAD CARD ── */
+  .pm-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: clamp(1.4rem, 4vw, 2rem);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+  .pm-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--rose-light), var(--gold), var(--rose-light));
+  }
 
-  /* Instagram */
-  .ig-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; padding: 12px 14px; background: linear-gradient(135deg, #fdf2f8, #fef9f0); border-radius: 10px; border: 1px solid #fce7f3; }
-  .ig-logo { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .ig-title { font-size: 14px; font-weight: 700; color: #0f172a; }
-  .ig-subtitle { font-size: 12px; color: #64748b; margin-top: 1px; }
+  /* ── DROP ZONE ── */
+  .pm-drop {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 3rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--cream);
+    position: relative;
+  }
+  .pm-drop:hover { border-color: var(--rose-light); background: #fdf4ee; }
+  .pm-drop.dragging { border-color: var(--rose); background: #fdf0e8; box-shadow: 0 0 0 4px rgba(201,133,106,0.1); }
+  .pm-drop-icon { font-size: 2.8rem; margin-bottom: 0.6rem; display: block; }
+  .pm-drop-label { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 5px; }
+  .pm-drop-hint { font-size: 12.5px; color: var(--muted); }
+  .pm-drop-browse { color: var(--rose-dark); font-weight: 600; }
 
-  .ig-steps { margin-bottom: 1.25rem; }
-  .ig-step { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; font-size: 13px; color: #475569; line-height: 1.5; }
-  .ig-step-num { min-width: 22px; height: 22px; border-radius: 50%; background: #fce7f3; color: #be185d; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  /* ── PREVIEW STRIP ── */
+  .pm-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.1rem; }
+  .pm-thumb {
+    position: relative; width: 80px; height: 80px;
+    border-radius: 10px; overflow: hidden;
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+  }
+  .pm-thumb:hover { border-color: var(--rose-light); transform: scale(1.04); }
+  .pm-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pm-thumb-rm {
+    position: absolute; top: 3px; right: 3px;
+    background: rgba(44,31,24,0.65);
+    border: none; color: #fff;
+    border-radius: 50%; width: 18px; height: 18px;
+    font-size: 10px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: var(--transition);
+  }
+  .pm-thumb-rm:hover { background: var(--error); }
 
-  .ig-input-wrap { position: relative; margin-bottom: 10px; }
-  .ig-input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 16px; }
-  .ig-url-input { width: 100%; padding: 9px 12px 9px 36px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 13px; outline: none; transition: border-color 0.2s; box-sizing: border-box; }
-  .ig-url-input:focus { border-color: #db2777; box-shadow: 0 0 0 3px rgba(219,39,119,0.1); }
+  /* ── BUTTONS ── */
+  .pm-btn-row { display: flex; align-items: center; gap: 12px; margin-top: 1.1rem; flex-wrap: wrap; }
+  .pm-btn-primary {
+    padding: 10px 22px;
+    border-radius: var(--radius-sm); border: none;
+    background: linear-gradient(135deg, var(--rose), var(--rose-dark));
+    color: #fff; font-size: 13.5px; font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 14px rgba(168,99,76,0.28);
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .pm-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(168,99,76,0.38); }
+  .pm-btn-primary:active { transform: translateY(0); }
+  .pm-btn-primary:disabled { background: linear-gradient(135deg, #cbb8af, #b0988c); box-shadow: none; cursor: not-allowed; transform: none; }
+  .pm-status { font-size: 12.5px; color: var(--muted); font-weight: 500; }
+  .pm-status.ok { color: var(--success); }
+  .pm-status.err { color: var(--error); }
 
-  .btn-ig { width: 100%; padding: 10px; border-radius: 8px; border: none; background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
-  .btn-ig:hover { opacity: 0.88; }
-  .btn-ig:disabled { opacity: 0.45; cursor: not-allowed; }
+  /* ── URL TAB ── */
+  .pm-url-hint { font-size: 13px; color: var(--muted); margin-bottom: 0.9rem; line-height: 1.55; }
+  .pm-url-row { display: flex; gap: 8px; }
+  .pm-url-input {
+    flex: 1; padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13.5px; font-family: 'DM Sans', sans-serif;
+    color: var(--ink); background: var(--cream);
+    outline: none; transition: var(--transition);
+  }
+  .pm-url-input::placeholder { color: #c4aea0; }
+  .pm-url-input:focus { border-color: var(--rose); background: #fff; box-shadow: 0 0 0 3px rgba(201,133,106,0.12); }
+  .pm-tips {
+    margin-top: 1rem; padding: 11px 14px;
+    background: #fffbf0; border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 12.5px; color: var(--ink-light); line-height: 1.6;
+  }
+  .pm-tips code { background: rgba(44,31,24,0.07); padding: 1px 5px; border-radius: 4px; font-family: monospace; }
 
-  .ig-status { margin-top: 0.75rem; padding: 9px 13px; border-radius: 7px; font-size: 12px; font-weight: 500; }
-  .ig-status.loading { background: #eff6ff; color: #1d4ed8; }
-  .ig-status.success { background: #f0fdf4; color: #15803d; }
-  .ig-status.error { background: #fef2f2; color: #dc2626; }
+  /* ── DIVIDER / SECTION ── */
+  .pm-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .pm-section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .pm-section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; font-weight: 600;
+    color: var(--ink); margin: 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pm-count-badge {
+    background: var(--blush); color: var(--rose-dark);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px;
+  }
 
-  .ig-note { margin-top: 1rem; padding: 10px 13px; background: #f0f9ff; border-left: 3px solid #38bdf8; border-radius: 0 6px 6px 0; font-size: 12px; color: #0c4a6e; line-height: 1.6; }
-  .ig-note code { background: rgba(0,0,0,0.07); padding: 1px 5px; border-radius: 3px; font-family: monospace; }
-  .ig-warn { margin-top: 0.75rem; padding: 10px 13px; background: #fff7ed; border-left: 3px solid #fb923c; border-radius: 0 6px 6px 0; font-size: 12px; color: #9a3412; line-height: 1.6; }
+  /* ── GALLERY GRID ── */
+  .pm-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+  @media (max-width: 480px) {
+    .pm-gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  }
 
-  /* Gallery */
-  .divider { border: none; border-top: 1px solid #e2e8f0; margin: 1.5rem 0; }
-  .section-label { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
-  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-  .gallery-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
-  .gallery-img-wrap { aspect-ratio: 4/3; position: relative; background: #e2e8f0; overflow: hidden; }
-  .gallery-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .source-badge { position: absolute; top: 6px; left: 6px; font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 600; letter-spacing: 0.03em; }
-  .badge-url { background: rgba(37,99,235,0.85); color: #fff; }
-  .badge-file { background: rgba(15,110,86,0.85); color: #fff; }
-  .badge-ig { background: linear-gradient(135deg, #e6683c, #cc2366); color: #fff; }
-  .gallery-footer { padding: 8px 10px; display: flex; align-items: center; gap: 6px; border-top: 1px solid #f1f5f9; background: #f8fafc; }
-  .role-select { flex: 1; font-size: 11px; border: 1px solid #e2e8f0; border-radius: 4px; padding: 3px 4px; background: #fff; color: #334155; cursor: pointer; min-width: 0; }
-  .btn-delete { border: none; background: none; color: #dc2626; cursor: pointer; font-size: 1rem; padding: 2px 4px; line-height: 1; }
-  .empty-state { padding: 3rem; text-align: center; color: #94a3b8; font-size: 14px; }
-  .empty-state .empty-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .pm-gallery-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+  }
+  .pm-gallery-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--rose-light); }
+
+  .pm-img-wrap {
+    aspect-ratio: 4/3;
+    position: relative; background: var(--blush);
+    overflow: hidden;
+  }
+  .pm-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+  .pm-gallery-card:hover .pm-img-wrap img { transform: scale(1.06); }
+
+  .pm-src-badge {
+    position: absolute; top: 7px; left: 7px;
+    font-size: 9.5px; padding: 2px 8px;
+    border-radius: 5px; font-weight: 700;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .badge-url  { background: rgba(37,99,235,0.82); color: #fff; }
+  .badge-file { background: rgba(15,110,86,0.82); color: #fff; }
+  .badge-ig   { background: linear-gradient(135deg, rgba(230,104,60,0.9), rgba(204,35,102,0.9)); color: #fff; }
+
+  .pm-card-footer {
+    padding: 8px 10px;
+    display: flex; align-items: center; gap: 6px;
+    border-top: 1px solid var(--border);
+    background: var(--cream);
+  }
+  .pm-role-select {
+    flex: 1;
+    font-size: 11px; font-family: 'DM Sans', sans-serif;
+    border: 1px solid var(--border);
+    border-radius: 5px; padding: 4px 5px;
+    background: var(--warm-white); color: var(--ink);
+    cursor: pointer; min-width: 0;
+    transition: var(--transition);
+  }
+  .pm-role-select:focus { border-color: var(--rose); outline: none; }
+  .pm-btn-delete {
+    border: 1.5px solid var(--border);
+    background: var(--warm-white); color: var(--muted);
+    cursor: pointer; font-size: 13px;
+    padding: 3px 7px; border-radius: 6px;
+    line-height: 1; transition: var(--transition);
+    display: flex; align-items: center;
+  }
+  .pm-btn-delete:hover { background: var(--error-bg); border-color: #fca5a5; color: var(--error); }
+
+  /* ── EMPTY STATE ── */
+  .pm-empty {
+    text-align: center; padding: 3.5rem 1rem;
+    background: var(--warm-white);
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
+  }
+  .pm-empty-icon { font-size: 2.5rem; margin-bottom: 0.6rem; }
+  .pm-empty h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--ink); margin: 0 0 0.4rem;
+  }
+  .pm-empty p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* ── SAVING DOT ── */
+  .pm-saving-dot {
+    display: inline-block; width: 7px; height: 7px;
+    background: #fff; border-radius: 50%;
+    animation: pmPulse 0.9s ease-in-out infinite;
+  }
+  @keyframes pmPulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.4; transform:scale(0.65); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    .pm-root { padding: 1.25rem 1rem 3rem; }
+    .pm-card { padding: 1.25rem; }
+    .pm-url-row { flex-direction: column; }
+    .pm-btn-primary { width: 100%; justify-content: center; }
+    .pm-tabs { width: 100%; }
+    .pm-tab { flex: 1; text-align: center; }
+  }
 `;
 
 const ROLES = [
-  { value: 'gallery', label: 'Galeri Umum' },
+  { value: 'gallery',  label: 'Galeri Umum' },
   { value: 'polaroid', label: 'Polaroid' },
-  { value: 'bride', label: 'Mempelai Wanita' },
-  { value: 'groom', label: 'Mempelai Pria' },
-  { value: 'cover', label: 'Cover Depan' },
+  { value: 'bride',    label: 'Mempelai Wanita' },
+  { value: 'groom',    label: 'Mempelai Pria' },
+  { value: 'cover',    label: 'Cover Depan' },
 ];
 
 const getDisplayUrl = (url) => {
   if (!url) return '';
-  const result = url
+  const result = url;
   return result;
 };
-
 
 const getSourceBadge = (source) => {
   if (source === 'ig')   return { cls: 'badge-ig',   label: 'IG' };
@@ -109,17 +350,17 @@ const getSourceBadge = (source) => {
 };
 
 const PhotoManagerPage = () => {
-  const [activeTab, setActiveTab]         = useState('file');
-  const [photos, setPhotos]               = useState([]);
-  const [pendingFiles, setPendingFiles]   = useState([]);
-  const [isDragging, setIsDragging]       = useState(false);
-  const [isUploading, setIsUploading]     = useState(false);
-  const [uploadStatus, setUploadStatus]   = useState('');
-  const [urlInput, setUrlInput]           = useState('');
-  const [isAddingUrl, setIsAddingUrl]     = useState(false);
-  const [igInput, setIgInput]             = useState('');
-  const [igStatus, setIgStatus]           = useState(null); // { type, msg }
-  const [isIgLoading, setIsIgLoading]     = useState(false);
+  const [activeTab, setActiveTab]       = useState('file');
+  const [photos, setPhotos]             = useState([]);
+  const [pendingFiles, setPendingFiles] = useState([]);
+  const [isDragging, setIsDragging]     = useState(false);
+  const [isUploading, setIsUploading]   = useState(false);
+  const [uploadStatus, setUploadStatus] = useState('');
+  const [urlInput, setUrlInput]         = useState('');
+  const [isAddingUrl, setIsAddingUrl]   = useState(false);
+  const [igInput, setIgInput]           = useState('');
+  const [igStatus, setIgStatus]         = useState(null);
+  const [isIgLoading, setIsIgLoading]   = useState(false);
 
   const fileInputRef = useRef(null);
 
@@ -129,7 +370,7 @@ const PhotoManagerPage = () => {
       .catch(err => console.error('Gagal memuat galeri:', err));
   }, []);
 
-  // ─── FILE UPLOAD ─────────────────────────────────────────────
+  // ─── FILE UPLOAD ────────────────────────────────────────────
   const readFiles = useCallback((files) => {
     Array.from(files).filter(f => f.type.startsWith('image/')).forEach(file => {
       const reader = new FileReader();
@@ -167,7 +408,8 @@ const PhotoManagerPage = () => {
       setIsUploading(false);
     }
   };
-  // ─── URL ADD ─────────────────────────────────────────────────
+
+  // ─── URL ADD ────────────────────────────────────────────────
   const handleAddUrl = async () => {
     if (!urlInput.trim()) return;
     setIsAddingUrl(true);
@@ -182,14 +424,12 @@ const PhotoManagerPage = () => {
     }
   };
 
-  // ─── INSTAGRAM ───────────────────────────────────────────────
+  // ─── INSTAGRAM ──────────────────────────────────────────────
   const handleIgSubmit = async () => {
     if (!igInput.trim()) return;
     setIsIgLoading(true);
     setIgStatus({ type: 'loading', msg: '⏳ Mengambil gambar dari Instagram...' });
     try {
-      // Backend route: POST /api/admin/photos/from-ig
-      // Backend download gambar → simpan ke /uploads → return Photo document
       const res = await axios.post(`${API_URL}/admin/photos/from-ig`, { url: igInput.trim() });
       setPhotos(prev => [{ ...res.data.photo, source: 'ig' }, ...prev]);
       setIgInput('');
@@ -203,7 +443,7 @@ const PhotoManagerPage = () => {
     }
   };
 
-  // ─── GALLERY ACTIONS ─────────────────────────────────────────
+  // ─── GALLERY ACTIONS ────────────────────────────────────────
   const handleDelete = async (id) => {
     if (!window.confirm('Yakin ingin menghapus foto ini secara permanen?')) return;
     try {
@@ -219,175 +459,191 @@ const PhotoManagerPage = () => {
     } catch (err) { alert('Gagal mengubah role foto.'); }
   };
 
-  // ─── RENDER ──────────────────────────────────────────────────
+  // ─── RENDER ─────────────────────────────────────────────────
   return (
     <>
-          
       <style>{styles}</style>
-            <AdminLayout title="Pengaturan">
-          <div className="max-w-4xl mx-auto space-y-8 pb-10 photo-page">
-        <h1 className="page-title">Manajemen Foto & Galeri</h1>
-        <p className="page-sub">Tambahkan foto via upload file, URL</p>
+      <AdminLayout title="Pengaturan">
+        <div className="pm-root">
+          <div className="pm-max">
 
-        <div className="tab-bar">
-          {[
-            { key: 'file', label: '↑ Upload File' },
-            { key: 'url',  label: '🔗 Via URL' },
-          ].map(t => (
-            <button key={t.key} className={`tab-btn${activeTab === t.key ? ' active' : ''}`} onClick={() => setActiveTab(t.key)}>
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="upload-card">
-
-          {/* ── Upload File ── */}
-          {activeTab === 'file' && (
-            <div>
-              <div
-                className={`drop-zone${isDragging ? ' dragging' : ''}`}
-                onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <input ref={fileInputRef} type="file" multiple accept="image/*" style={{ display: 'none' }} onChange={handleFileInputChange} />
-                <div className="drop-icon">🖼️</div>
-                <p className="drop-label">Seret & lepas foto di sini</p>
-                <p className="drop-hint">atau <span className="drop-browse">pilih dari perangkat</span> · PNG, JPG, WEBP, GIF</p>
-              </div>
-
-              {pendingFiles.length > 0 && (
-                <div className="preview-strip">
-                  {pendingFiles.map(pf => (
-                    <div className="preview-thumb" key={pf.id}>
-                      <img src={pf.dataUrl} alt="preview" />
-                      <button className="thumb-remove" onClick={() => removePending(pf.id)}>✕</button>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {pendingFiles.length > 0 && (
-                <div className="upload-btn-row">
-                  <button className="btn-primary" onClick={handleUpload} disabled={isUploading}>
-                    {isUploading ? 'Menyimpan...' : `Simpan ${pendingFiles.length} Foto`}
-                  </button>
-                  {uploadStatus && <span className="upload-status">{uploadStatus}</span>}
-                </div>
-              )}
+            {/* ── HEADER ── */}
+            <div className="pm-header">
+              <div className="pm-eyebrow">✦ Admin Panel</div>
+              <h1>Manajemen Foto & Galeri</h1>
+              <p>Unggah dan atur foto untuk ditampilkan di undangan</p>
             </div>
-          )}
 
-          {/* ── Via URL ── */}
-          {activeTab === 'url' && (
-            <div>
-              <p className="url-hint">Masukkan tautan gambar publik (Google Drive, Imgur, Cloudinary, dll).</p>
-              <div className="url-row">
-                <input
-                  type="url" className="url-input" placeholder="https://contoh.com/gambar.jpg"
-                  value={urlInput} onChange={(e) => setUrlInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleAddUrl()}
-                />
-                <button className="btn-primary" onClick={handleAddUrl} disabled={isAddingUrl}>
-                  {isAddingUrl ? 'Menyimpan...' : 'Tambahkan'}
+            {/* ── TAB BAR ── */}
+            <div className="pm-tabs">
+              {[
+                { key: 'file', label: '↑ Upload File' },
+                { key: 'url',  label: '🔗 Via URL' },
+              ].map(t => (
+                <button
+                  key={t.key}
+                  className={`pm-tab${activeTab === t.key ? ' active' : ''}`}
+                  onClick={() => setActiveTab(t.key)}
+                >
+                  {t.label}
                 </button>
-              </div>
-         
+              ))}
             </div>
-          )}
 
-          {/* ── Instagram ── */}
-          {activeTab === 'ig' && (
-            <div>
-              <div className="ig-header">
-                <div className="ig-logo">📷</div>
+            {/* ── UPLOAD CARD ── */}
+            <div className="pm-card">
+
+              {/* Upload File */}
+              {activeTab === 'file' && (
                 <div>
-                  <div className="ig-title">Ambil Foto dari Instagram</div>
-                  <div className="ig-subtitle">Server akan mengunduh & menyimpan gambar secara otomatis</div>
-                </div>
-              </div>
+                  <div
+                    className={`pm-drop${isDragging ? ' dragging' : ''}`}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <input
+                      ref={fileInputRef} type="file" multiple accept="image/*"
+                      style={{ display: 'none' }} onChange={handleFileInputChange}
+                    />
+                    <span className="pm-drop-icon">🖼️</span>
+                    <p className="pm-drop-label">Seret & lepas foto di sini</p>
+                    <p className="pm-drop-hint">atau <span className="pm-drop-browse">pilih dari perangkat</span> · PNG, JPG, WEBP, GIF</p>
+                  </div>
 
-              <div className="ig-steps">
-                <div className="ig-step">
-                  <span className="ig-step-num">1</span>
-                  <span>Buka foto di Instagram → klik <strong>⋯</strong> → pilih <strong>Salin tautan</strong></span>
-                </div>
-                <div className="ig-step">
-                  <span className="ig-step-num">2</span>
-                  <span>Tempel tautan di bawah lalu klik <strong>Ambil Foto</strong></span>
-                </div>
-                <div className="ig-step">
-                  <span className="ig-step-num">3</span>
-                  <span>Gambar diunduh server & langsung muncul di galeri</span>
-                </div>
-              </div>
+                  {pendingFiles.length > 0 && (
+                    <div className="pm-preview">
+                      {pendingFiles.map(pf => (
+                        <div className="pm-thumb" key={pf.id}>
+                          <img src={pf.dataUrl} alt="preview" />
+                          <button className="pm-thumb-rm" onClick={() => removePending(pf.id)}>✕</button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
-              <div className="ig-input-wrap">
-                <span className="ig-input-icon">📎</span>
-                <input
-                  type="url" className="ig-url-input"
-                  placeholder="https://www.instagram.com/p/ABC123xyz/"
-                  value={igInput} onChange={(e) => setIgInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleIgSubmit()}
-                />
-              </div>
-
-              <button className="btn-ig" onClick={handleIgSubmit} disabled={isIgLoading || !igInput.trim()}>
-                {isIgLoading ? '⏳ Mengambil gambar...' : '📸 Ambil Foto dari Instagram'}
-              </button>
-
-              {igStatus && (
-                <div className={`ig-status ${igStatus.type}`}>{igStatus.msg}</div>
+                  {pendingFiles.length > 0 && (
+                    <div className="pm-btn-row">
+                      <button className="pm-btn-primary" onClick={handleUpload} disabled={isUploading}>
+                        {isUploading
+                          ? <><span className="pm-saving-dot" /> Menyimpan…</>
+                          : `✦ Simpan ${pendingFiles.length} Foto`
+                        }
+                      </button>
+                      {uploadStatus && (
+                        <span className={`pm-status${uploadStatus.includes('Gagal') ? ' err' : ' ok'}`}>
+                          {uploadStatus}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
 
-              <div className="ig-note">
-                <strong>ℹ️ Cara kerja:</strong> Tautan Instagram dikirim ke backend → backend mengunduh gambarnya menggunakan axios + header browser → gambar disimpan di <code>/uploads</code> server kamu secara permanen.
-              </div>
+              {/* Via URL */}
+              {activeTab === 'url' && (
+                <div>
+                  <p className="pm-url-hint">
+                    Masukkan tautan gambar publik dari Google Drive, Imgur, Cloudinary, atau layanan hosting gambar lainnya.
+                  </p>
+                  <div className="pm-url-row">
+                    <input
+                      type="url" className="pm-url-input"
+                      placeholder="https://contoh.com/gambar.jpg"
+                      value={urlInput}
+                      onChange={(e) => setUrlInput(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleAddUrl()}
+                    />
+                    <button className="pm-btn-primary" onClick={handleAddUrl} disabled={isAddingUrl}>
+                      {isAddingUrl
+                        ? <><span className="pm-saving-dot" /> Menyimpan…</>
+                        : '+ Tambahkan'
+                      }
+                    </button>
+                  </div>
+                </div>
+              )}
 
-              <div className="ig-warn">
-                <strong>⚠️ Perlu route backend:</strong> Pastikan sudah menambahkan <code>POST /api/admin/photos/from-ig</code> di router Express. Jika gagal, download manual lalu upload via tab <strong>Upload File</strong>.
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* ── Gallery ── */}
-        <hr className="divider" />
-        <p className="section-label">Foto Tersimpan ({photos.length})</p>
-
-        {photos.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-icon">📭</div>
-            Belum ada foto yang tersimpan di database.
-          </div>
-        ) : (
-          <div className="gallery-grid">
-            {photos.map((photo) => {
-              const badge = getSourceBadge(photo.source);
-              return (
-                <div className="gallery-card" key={photo.id || photo._id}>
-                  <div className="gallery-img-wrap">
-                    <span className={`source-badge ${badge.cls}`}>{badge.label}</span>
-                    <img
-                      src={getDisplayUrl(photo.url)} alt="Foto" loading="lazy"
-                      onError={(e) => { e.target.onerror = null; e.target.src = ''; }}
+              {/* Instagram (hidden tab, tetap ada di DOM untuk fungsionalitas) */}
+              {activeTab === 'ig' && (
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: '1.25rem', padding: '12px 14px', background: 'linear-gradient(135deg, #fdf2f8, #fef9f0)', borderRadius: 10, border: '1px solid #fce7f3' }}>
+                    <div style={{ width: 38, height: 38, borderRadius: 10, background: 'linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0 }}>📷</div>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)' }}>Ambil Foto dari Instagram</div>
+                      <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 1 }}>Server akan mengunduh & menyimpan gambar secara otomatis</div>
+                    </div>
+                  </div>
+                  <div style={{ position: 'relative', marginBottom: 10 }}>
+                    <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', fontSize: 16 }}>📎</span>
+                    <input
+                      type="url" className="pm-url-input" style={{ paddingLeft: 36, width: '100%' }}
+                      placeholder="https://www.instagram.com/p/ABC123xyz/"
+                      value={igInput} onChange={(e) => setIgInput(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleIgSubmit()}
                     />
                   </div>
-                  <div className="gallery-footer">
-                    <select
-                      className="role-select" value={photo.role}
-                      onChange={(e) => handleRoleChange(photo.id || photo._id, e.target.value)}
-                    >
-                      {ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
-                    </select>
-                    <button className="btn-delete" onClick={() => handleDelete(photo.id || photo._id)} title="Hapus">🗑</button>
-                  </div>
+                  <button className="pm-btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={handleIgSubmit} disabled={isIgLoading || !igInput.trim()}>
+                    {isIgLoading ? <><span className="pm-saving-dot" /> Mengambil gambar…</> : '📸 Ambil Foto dari Instagram'}
+                  </button>
+                  {igStatus && (
+                    <div style={{ marginTop: '0.75rem', padding: '9px 13px', borderRadius: 7, fontSize: 12.5, fontWeight: 500, background: igStatus.type === 'success' ? 'var(--success-bg)' : igStatus.type === 'error' ? 'var(--error-bg)' : 'var(--info-bg)', color: igStatus.type === 'success' ? 'var(--success)' : igStatus.type === 'error' ? 'var(--error)' : 'var(--info)' }}>
+                      {igStatus.msg}
+                    </div>
+                  )}
                 </div>
-              );
-            })}
+              )}
+            </div>
+
+            {/* ── GALLERY ── */}
+            <hr className="pm-divider" />
+            <div className="pm-section-header">
+              <h2 className="pm-section-title">🖼 Foto Tersimpan</h2>
+              <span className="pm-count-badge">{photos.length} foto</span>
+            </div>
+
+            {photos.length === 0 ? (
+              <div className="pm-empty">
+                <div className="pm-empty-icon">📭</div>
+                <h3>Belum ada foto</h3>
+                <p>Mulai unggah foto menggunakan tab di atas.</p>
+              </div>
+            ) : (
+              <div className="pm-gallery-grid">
+                {photos.map((photo) => {
+                  const badge = getSourceBadge(photo.source);
+                  return (
+                    <div className="pm-gallery-card" key={photo.id || photo._id}>
+                      <div className="pm-img-wrap">
+                        <span className={`pm-src-badge ${badge.cls}`}>{badge.label}</span>
+                        <img
+                          src={getDisplayUrl(photo.url)} alt="Foto" loading="lazy"
+                          onError={(e) => { e.target.onerror = null; e.target.src = ''; }}
+                        />
+                      </div>
+                      <div className="pm-card-footer">
+                        <select
+                          className="pm-role-select"
+                          value={photo.role}
+                          onChange={(e) => handleRoleChange(photo.id || photo._id, e.target.value)}
+                        >
+                          {ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
+                        </select>
+                        <button
+                          className="pm-btn-delete"
+                          onClick={() => handleDelete(photo.id || photo._id)}
+                          title="Hapus foto"
+                        >🗑</button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
           </div>
-        )}
-      </div>
+        </div>
       </AdminLayout>
     </>
   );
