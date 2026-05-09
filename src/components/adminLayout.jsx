@@ -397,9 +397,7 @@ const AdminLayout = ({ children, title }) => {
 
           {/* Preview link — sidebar */}
           <Link
-            to="/"
-            target="_blank"
-            rel="noopener noreferrer"
+            to="/admin/pengaturan-foto"
             className="al-preview-sidebar"
             onClick={() => setMobileOpen(false)}
           >
@@ -409,7 +407,7 @@ const AdminLayout = ({ children, title }) => {
               <polyline points="15 3 21 3 21 9"/>
               <line x1="10" y1="14" x2="21" y2="3"/>
             </svg>
-            Lihat Undangan
+            Galeri
           </Link>
 
           <div className="al-info-card">
