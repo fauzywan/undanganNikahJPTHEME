@@ -287,8 +287,8 @@ const getBgmUrl = () => {
   const { config, photos, guests } = data || {};
   const brideShort = config?.bride?.name?.split(' ')[0] || 'Wanita';
   const groomShort = config?.groom?.name?.split(' ')[0] || 'Pria';
-  const eventDateObj = config?.eventDate ? new Date(config.eventDate) : null;
-  const year = eventDateObj != null ? config.eventDate.substr(0,4) : new Date().getFullYear();
+  const eventDateObj = config?.events.find(item => item.name.toLowerCase().includes("akad") || item.name.toLowerCase().includes("resepsi")).date || config.eventDate ? new Date(config.eventDate) : null;
+  const year = eventDateObj != null ? config.eventDate.substring(0,4) : new Date().getFullYear();
   const formattedDate = eventDateObj ? eventDateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long' }) : 'Tanggal Belum Ditentukan';
 
   return (
