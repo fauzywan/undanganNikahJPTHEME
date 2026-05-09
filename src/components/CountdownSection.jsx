@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const CountdownSection = ({ eventDate }) => {
+const CountdownSection = ({ eventDate,bride,groom }) => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0, hours: 0, minutes: 0, seconds: 0
   });
@@ -30,7 +30,7 @@ const CountdownSection = ({ eventDate }) => {
   // Fungsi untuk membuat link Google Calendar
   const addToCalendar = () => {
     const date = new Date(eventDate).toISOString().replace(/-|:|\.\d\d\d/g, "");
-    const title = "Pernikahan Arya & Hana";
+    const title = `Pernikahan ${bride} & ${groom}`;
     const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${date}/${date}`;
     window.open(url, '_blank');
   };

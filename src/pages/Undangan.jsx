@@ -429,7 +429,7 @@ const getBgmUrl = () => {
         </div>
           <div ref={el => sectionRefs.current[1] = el}>
           <LoveStory stories={dataStory} />
-          <CountdownSection eventDate={config?.events.find(item => item.name.toLowerCase().includes("akad") || item.name.toLowerCase().includes("resepsi") ).date || '2026-06-01'} />
+          <CountdownSection eventDate={config?.events.find(item => item.name.toLowerCase().includes("akad") || item.name.toLowerCase().includes("resepsi") ).date || '2026-06-01'}  bride={config?.bride?.name} groom={config?.groom?.name}/>
         </div>
         <div ref={el => sectionRefs.current[3] = el}>
           <EventSection formattedDate={formattedDate} year={year} config={config} />
