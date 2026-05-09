@@ -389,7 +389,7 @@ const Dashboard = () => {
 
   const handleSendWa = () => {
     if (!waMessage.trim()) { alert('Pesan tidak boleh kosong!'); return; }
-    window.open(`https://wa.me/?text=${encodeURIComponent(waMessage)}`, '_blank');
+    window.open(`https://wa.me/${currentGuestWa.whatsappNumber}?text=${encodeURIComponent(waMessage)}`, '_blank');
     setIsWaModalOpen(false);
   };
 
