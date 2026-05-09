@@ -37,7 +37,7 @@ const NAV_ITEMS = [
       </svg>
     ),
   },
-   {
+  {
     to: '/admin/lovestory',
     label: 'Love Story',
     icon: (
@@ -64,7 +64,6 @@ const AdminLayout = ({ children, title }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  
 
   const handleLogout = () => {
     dispatch(logout());
@@ -113,9 +112,7 @@ const AdminLayout = ({ children, title }) => {
           line-height: 1;
         }
 
-        .al-brand-dot {
-          color: #D97B6C;
-        }
+        .al-brand-dot { color: #D97B6C; }
 
         .al-brand-sub {
           font-size: 11px;
@@ -145,70 +142,68 @@ const AdminLayout = ({ children, title }) => {
           color: #78716C;
           text-decoration: none;
           transition: all 0.15s ease;
-          position: relative;
         }
 
-        .al-nav-link:hover {
-          background: #F5F1EB;
-          color: #1C1917;
-        }
-
-        .al-nav-link.active {
-          background: #FDF2EF;
-          color: #C2432A;
-        }
-
-        .al-nav-link.active .al-nav-icon {
-          color: #C2432A;
-        }
+        .al-nav-link:hover { background: #F5F1EB; color: #1C1917; }
+        .al-nav-link.active { background: #FDF2EF; color: #C2432A; }
+        .al-nav-link.active .al-nav-icon { color: #C2432A; }
 
         .al-nav-icon {
-          width: 32px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          width: 32px; height: 32px;
+          display: flex; align-items: center; justify-content: center;
           border-radius: 8px;
           flex-shrink: 0;
           transition: background 0.15s;
         }
 
-        .al-nav-link.active .al-nav-icon {
-          background: #FCDDD6;
+        .al-nav-link.active .al-nav-icon { background: #FCDDD6; }
+        .al-nav-link:hover:not(.active) .al-nav-icon { background: #EDE9E3; }
+
+        /* ── Preview link in sidebar ── */
+        .al-preview-sidebar {
+          margin: 0 12px 12px;
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          padding: 10px 13px;
+          border-radius: 10px;
+          background: linear-gradient(135deg, #FFF8F0, #FFF3E8);
+          border: 1px solid #F5DCC8;
+          text-decoration: none;
+          color: #A05C2C;
+          font-size: 13px;
+          font-weight: 600;
+          transition: all 0.18s ease;
+        }
+        .al-preview-sidebar:hover {
+          background: linear-gradient(135deg, #FFF0E0, #FFECD8);
+          border-color: #E8B87C;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(168,99,76,0.12);
+        }
+        .al-preview-sidebar svg { flex-shrink: 0; opacity: 0.75; }
+        .al-preview-sidebar-dot {
+          width: 7px; height: 7px; border-radius: 50%;
+          background: #D97B6C;
+          animation: alPulse 2s ease-in-out infinite;
+          flex-shrink: 0;
+        }
+        @keyframes alPulse {
+          0%,100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.45; transform: scale(0.7); }
         }
 
-        .al-nav-link:hover:not(.active) .al-nav-icon {
-          background: #EDE9E3;
-        }
-
-        /* Info card in sidebar */
+        /* Info card */
         .al-info-card {
-          margin: 12px;
+          margin: 0 12px 12px;
           padding: 16px;
           border-radius: 14px;
           background: linear-gradient(135deg, #FFF5F3 0%, #FFF0EB 100%);
           border: 1px solid #FCDDD6;
         }
-
-        .al-info-card-emoji {
-          font-size: 22px;
-          margin-bottom: 8px;
-          display: block;
-        }
-
-        .al-info-card-title {
-          font-family: 'Fraunces', serif;
-          font-size: 14px;
-          font-weight: 600;
-          color: #9A2D1A;
-          margin-bottom: 3px;
-        }
-
-        .al-info-card-sub {
-          font-size: 11.5px;
-          color: #C86B5A;
-          line-height: 1.5;
-        }
+        .al-info-card-emoji { font-size: 22px; margin-bottom: 8px; display: block; }
+        .al-info-card-title { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600; color: #9A2D1A; margin-bottom: 3px; }
+        .al-info-card-sub { font-size: 11.5px; color: #C86B5A; line-height: 1.5; }
 
         .al-sidebar-footer {
           padding: 12px;
@@ -216,142 +211,96 @@ const AdminLayout = ({ children, title }) => {
         }
 
         .al-logout-btn {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          width: 100%;
-          padding: 9px 12px;
-          border-radius: 8px;
-          border: none;
+          display: flex; align-items: center; gap: 8px;
+          width: 100%; padding: 9px 12px;
+          border-radius: 8px; border: none;
           background: transparent;
           font-family: 'Plus Jakarta Sans', sans-serif;
-          font-size: 13px;
-          font-weight: 500;
-          color: #A8A29E;
-          cursor: pointer;
-          transition: all 0.15s;
-          text-align: left;
+          font-size: 13px; font-weight: 500;
+          color: #A8A29E; cursor: pointer;
+          transition: all 0.15s; text-align: left;
         }
-
-        .al-logout-btn:hover {
-          background: #FEF2F2;
-          color: #DC2626;
-        }
+        .al-logout-btn:hover { background: #FEF2F2; color: #DC2626; }
 
         /* ── Main area ───────────────────────────── */
-        .al-main {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          min-width: 0;
-        }
+        .al-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
 
         .al-header {
           height: 64px;
           background: #FFFFFF;
           border-bottom: 1px solid #E8E4DC;
-          display: flex;
-          align-items: center;
+          display: flex; align-items: center;
           justify-content: space-between;
           padding: 0 24px;
-          flex-shrink: 0;
-          gap: 16px;
+          flex-shrink: 0; gap: 16px;
         }
 
-        .al-header-left {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-        }
+        .al-header-left { display: flex; align-items: center; gap: 12px; }
 
         .al-mobile-toggle {
           display: none;
-          align-items: center;
-          justify-content: center;
-          width: 36px;
-          height: 36px;
-          border-radius: 8px;
-          border: 1px solid #E8E4DC;
-          background: transparent;
-          cursor: pointer;
-          color: #78716C;
-          transition: all 0.15s;
+          align-items: center; justify-content: center;
+          width: 36px; height: 36px;
+          border-radius: 8px; border: 1px solid #E8E4DC;
+          background: transparent; cursor: pointer;
+          color: #78716C; transition: all 0.15s;
         }
-
-        .al-mobile-toggle:hover {
-          background: #F5F1EB;
-          color: #1C1917;
-        }
+        .al-mobile-toggle:hover { background: #F5F1EB; color: #1C1917; }
 
         .al-page-title {
           font-family: 'Fraunces', serif;
-          font-size: 18px;
-          font-weight: 600;
-          color: #1C1917;
-          letter-spacing: -0.3px;
+          font-size: 18px; font-weight: 600;
+          color: #1C1917; letter-spacing: -0.3px;
         }
 
-        .al-header-right {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
+        .al-header-right { display: flex; align-items: center; gap: 10px; }
 
-        .al-search {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          background: #F5F1EB;
-          border: 1px solid #E8E4DC;
-          border-radius: 20px;
+        /* ── Preview button in header ── */
+        .al-preview-btn {
+          display: flex; align-items: center; gap: 7px;
           padding: 7px 14px;
-          transition: all 0.2s;
-        }
-
-        .al-search:focus-within {
-          background: #FFFFFF;
-          border-color: #D97B6C;
-          box-shadow: 0 0 0 3px #FEE8E4;
-        }
-
-        .al-search input {
-          border: none;
-          background: transparent;
+          border-radius: 20px;
+          border: 1.5px solid #E8D0BC;
+          background: linear-gradient(135deg, #FFF8F2, #FFF3E8);
+          color: #A05C2C;
           font-family: 'Plus Jakarta Sans', sans-serif;
-          font-size: 13px;
-          color: #1C1917;
-          outline: none;
-          width: 180px;
+          font-size: 12.5px; font-weight: 600;
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.18s ease;
+          white-space: nowrap;
         }
-
-        .al-search input::placeholder {
-          color: #A8A29E;
+        .al-preview-btn:hover {
+          background: linear-gradient(135deg, #FFF0E0, #FFE8D0);
+          border-color: #D4955A;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 14px rgba(168,99,76,0.18);
+          color: #7A3D10;
         }
-
-        .al-search-icon {
-          color: #A8A29E;
+        .al-preview-btn:active { transform: translateY(0); }
+        .al-preview-btn-dot {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: #D97B6C;
+          animation: alPulse 2s ease-in-out infinite;
           flex-shrink: 0;
+        }
+        /* Hide label on very small screens, keep icon */
+        .al-preview-btn-label { }
+        @media (max-width: 380px) {
+          .al-preview-btn-label { display: none; }
+          .al-preview-btn { padding: 7px 10px; }
         }
 
         .al-avatar {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
+          width: 36px; height: 36px; border-radius: 50%;
           background: linear-gradient(135deg, #D97B6C, #C2432A);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 700;
-          font-size: 13px;
-          color: #FFFFFF;
-          flex-shrink: 0;
-          letter-spacing: 0.5px;
+          display: flex; align-items: center; justify-content: center;
+          font-weight: 700; font-size: 13px; color: #FFFFFF;
+          flex-shrink: 0; letter-spacing: 0.5px;
         }
 
         .al-content {
-          flex: 1;
-          overflow-y: auto;
+          flex: 1; overflow-y: auto;
           padding: 28px 28px;
           scroll-behavior: smooth;
         }
@@ -359,124 +308,59 @@ const AdminLayout = ({ children, title }) => {
         /* ── Mobile overlay ──────────────────────── */
         .al-overlay {
           display: none;
-          position: fixed;
-          inset: 0;
+          position: fixed; inset: 0;
           background: rgba(28,25,23,0.4);
-          z-index: 30;
-          backdrop-filter: blur(2px);
+          z-index: 30; backdrop-filter: blur(2px);
           animation: fadeIn 0.2s ease;
         }
-
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* ── Mobile bottom nav ───────────────────── */
         .al-bottom-nav {
           display: none;
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          height: 64px;
-          background: #FFFFFF;
+          position: fixed; bottom: 0; left: 0; right: 0;
+          height: 64px; background: #FFFFFF;
           border-top: 1px solid #E8E4DC;
-          z-index: 20;
-          padding: 0 8px;
-          align-items: center;
-          justify-content: space-around;
-          gap: 4px;
+          z-index: 20; padding: 0 8px;
+          align-items: center; justify-content: space-around; gap: 4px;
         }
 
         .al-bottom-nav-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 3px;
-          padding: 6px 10px;
-          border-radius: 10px;
-          text-decoration: none;
-          color: #A8A29E;
-          font-size: 10px;
-          font-weight: 500;
-          transition: all 0.15s;
-          flex: 1;
-          min-width: 0;
+          display: flex; flex-direction: column;
+          align-items: center; gap: 3px;
+          padding: 6px 10px; border-radius: 10px;
+          text-decoration: none; color: #A8A29E;
+          font-size: 10px; font-weight: 500;
+          transition: all 0.15s; flex: 1; min-width: 0;
         }
-
-        .al-bottom-nav-item.active {
-          color: #C2432A;
-          background: #FDF2EF;
-        }
-
-        .al-bottom-nav-item span {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 100%;
-        }
+        .al-bottom-nav-item.active { color: #C2432A; background: #FDF2EF; }
+        .al-bottom-nav-item span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 
         /* ── Responsive ──────────────────────────── */
         @media (max-width: 768px) {
           .al-sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
+            position: fixed; top: 0; left: 0; height: 100%;
             transform: translateX(-100%);
             box-shadow: 4px 0 32px rgba(28,25,23,0.12);
           }
-
-          .al-sidebar.open {
-            transform: translateX(0);
-          }
-
-          .al-overlay.open {
-            display: block;
-          }
-
-          .al-mobile-toggle {
-            display: flex;
-          }
-
-          .al-bottom-nav {
-            display: flex;
-          }
-
-          .al-content {
-            padding: 20px 16px 84px;
-          }
-
-          .al-search {
-            display: none;
-          }
-
-          .al-header {
-            padding: 0 16px;
-          }
+          .al-sidebar.open { transform: translateX(0); }
+          .al-overlay.open { display: block; }
+          .al-mobile-toggle { display: flex; }
+          .al-bottom-nav { display: flex; }
+          .al-content { padding: 20px 16px 84px; }
+          .al-header { padding: 0 16px; }
+          /* Hide sidebar preview link on desktop only approach — keep visible on mobile too */
         }
 
         @media (max-width: 480px) {
-          .al-page-title {
-            font-size: 16px;
-          }
+          .al-page-title { font-size: 16px; }
         }
 
-        /* Scrollbar styling */
-        .al-content::-webkit-scrollbar {
-          width: 4px;
-        }
-        .al-content::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .al-content::-webkit-scrollbar-thumb {
-          background: #D6CFC6;
-          border-radius: 4px;
-        }
-        .al-content::-webkit-scrollbar-thumb:hover {
-          background: #A8A29E;
-        }
+        /* Scrollbar */
+        .al-content::-webkit-scrollbar { width: 4px; }
+        .al-content::-webkit-scrollbar-track { background: transparent; }
+        .al-content::-webkit-scrollbar-thumb { background: #D6CFC6; border-radius: 4px; }
+        .al-content::-webkit-scrollbar-thumb:hover { background: #A8A29E; }
       `}</style>
 
       <div className="al-root">
@@ -490,9 +374,7 @@ const AdminLayout = ({ children, title }) => {
         {/* Sidebar */}
         <aside className={`al-sidebar${mobileOpen ? ' open' : ''}`}>
           <div className="al-brand">
-            <div className="al-brand-name">
-              Undangan<span className="al-brand-dot">.</span>
-            </div>
+            <div className="al-brand-name">Undangan<span className="al-brand-dot">.</span></div>
             <div className="al-brand-sub">Admin Panel</div>
           </div>
 
@@ -512,6 +394,23 @@ const AdminLayout = ({ children, title }) => {
               );
             })}
           </nav>
+
+          {/* Preview link — sidebar */}
+          <Link
+            to="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="al-preview-sidebar"
+            onClick={() => setMobileOpen(false)}
+          >
+            <span className="al-preview-sidebar-dot" />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Lihat Undangan
+          </Link>
 
           <div className="al-info-card">
             <span className="al-info-card-emoji">💍</span>
@@ -550,7 +449,21 @@ const AdminLayout = ({ children, title }) => {
             </div>
 
             <div className="al-header-right">
-              
+              {/* Preview button — header */}
+              <Link
+                to="/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="al-preview-btn"
+              >
+                <span className="al-preview-btn-dot" />
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span className="al-preview-btn-label">Lihat Undangan</span>
+              </Link>
+
               <div className="al-avatar">A</div>
             </div>
           </header>
@@ -566,7 +479,6 @@ const AdminLayout = ({ children, title }) => {
             const isActive = location.pathname === item.to;
             return (
               <Link
-                
                 key={item.to}
                 to={item.to}
                 className={`al-bottom-nav-item${isActive ? ' active' : ''}`}
