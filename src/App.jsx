@@ -12,6 +12,7 @@ import LoveStoryManager from './pages/LoveStoryManager'
 
 // Import Protected Route
 import ProtectedRoute from './components/ProtectedRoute' 
+import OverView from './pages/OverView'
 
 function App() {
   return(
@@ -27,6 +28,7 @@ function App() {
         <Route path="/admin/music" element={<MusicManagerPage />} />
         <Route path="/admin/lovestory" element={<LoveStoryManager />} />
         <Route path="/admin/pengaturan" element={<Pengaturan />} />
+        <Route path="/admin/overview" element={<OverView />} />
       </Route>
     </Routes>
   )

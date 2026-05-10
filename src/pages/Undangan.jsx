@@ -150,6 +150,35 @@ const Undangan = () => {
       audio.removeEventListener('error', handleStalled);
     };
   }, []);
+  // ==========================================
+  // TRACKING TRAFFIC PENGUNJUNG
+  // ==========================================
+  useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        // 1. Cek apakah tamu ini sudah punya ID unik di browsernya
+        let visitorId = localStorage.getItem('wedding_visitor_id');
+        
+        // 2. Kalau belum punya (baru pertama kali buka), buatkan ID acak
+        if (!visitorId) {
+          visitorId = 'vst_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+          localStorage.setItem('wedding_visitor_id', visitorId);
+        }
+
+        // 3. Tembak API tracking di background secara diam-diam (tidak usah di-await jika tidak perlu, biar tidak menghambat render)
+        axios.post(`${API_URL}/analytics/track`, {
+          visitorId: visitorId,
+          userAgent: window.navigator.userAgent // Mendeteksi browser/HP yang dipakai
+        });
+
+      } catch (error) {
+        // Jika gagal track, biarkan saja agar tidak mengganggu pengalaman tamu
+        console.error("Tracking error:", error);
+      }
+    };
+
+    trackVisit();
+  }, []); 
 
   // ==========================================
   // 4. EFEK FADE-UP OBSERVER
